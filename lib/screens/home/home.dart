@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food/screens/food-details/food-details.dart';
+import 'package:food/screens/shared/app-bar.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -62,7 +64,7 @@ class Home extends StatelessWidget {
                           color: Theme.of(context).colorScheme.surface,
                         ),
                       ),
-                     Container(
+                      Container(
                         width: 55,
                         height: 55,
                         decoration: BoxDecoration(
@@ -70,7 +72,8 @@ class Home extends StatelessWidget {
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
-                      Icon(Icons.add, color: Theme.of(context).colorScheme.primary)
+                      Icon(Icons.add,
+                          color: Theme.of(context).colorScheme.primary)
                     ],
                   ),
                 ],
@@ -96,88 +99,94 @@ class FoodDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 320,
-      height: 200,
-      margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-      child: Stack(
-        children: [
-          //big rectangle
-          Positioned(
-            top: 25,
-            left: 20,
-            child: Container(
-              width: 300,
-              height: 450,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(35)),
-            ),
-          ),
-          // circle image bg
-          Positioned(
-            top: 15,
-            left: 20,
-            child: Container(
-              width: 160,
-              height: 160,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.pink[100]),
-            ),
-          ),
-          Container(
-            width: 170,
-            height: 170,
-            decoration: BoxDecoration(
-              image:
-                  DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
-            ),
-          ),
-          Positioned(
-            right: 20,
-            top: 90,
-            child: Text(
-              '\$20',
-              style: Theme.of(context).textTheme.headline6.copyWith(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-          ),
-          Positioned(
-            top: 200,
-            left: 40,
-            child: RichText(
-              text: TextSpan(
-                text: '$title\n',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .copyWith(fontWeight: FontWeight.bold),
-                children: [
-                  TextSpan(
-                    text: '$subtitle',
-                    style: Theme.of(context).textTheme.subtitle2.copyWith(
-                          color: Colors.grey[400],
-                        ),
-                  ),
-                ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => FoodDetailsPage()));
+      },
+      child: Container(
+        width: 320,
+        height: 200,
+        margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+        child: Stack(
+          children: [
+            //big rectangle
+            Positioned(
+              top: 25,
+              left: 20,
+              child: Container(
+                width: 300,
+                height: 450,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(35)),
               ),
             ),
-          ),
-          Positioned(
-            top: 270,
-            left: 40,
-            child: Container(
-              width: 260,
-              height: 200,
+            // circle image bg
+            Positioned(
+              top: 15,
+              left: 20,
+              child: Container(
+                width: 160,
+                height: 160,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: Colors.pink[100]),
+              ),
+            ),
+            Container(
+              width: 170,
+              height: 170,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(image), fit: BoxFit.cover),
+              ),
+            ),
+            Positioned(
+              right: 20,
+              top: 90,
               child: Text(
-                '$description',
-                maxLines: 10,
+                '\$20',
+                style: Theme.of(context).textTheme.headline6.copyWith(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              top: 200,
+              left: 40,
+              child: RichText(
+                text: TextSpan(
+                  text: '$title\n',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(fontWeight: FontWeight.bold),
+                  children: [
+                    TextSpan(
+                      text: '$subtitle',
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2
+                          .copyWith(color: Colors.grey[400]),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: 270,
+              left: 40,
+              child: Container(
+                width: 260,
+                height: 200,
+                child: Text(
+                  '$description',
+                  maxLines: 10,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -249,30 +258,6 @@ class CategoryItem extends StatelessWidget {
         style: Theme.of(context).textTheme.subtitle2.copyWith(
             color:
                 active ? Theme.of(context).colorScheme.secondary : Colors.grey),
-      ),
-    );
-  }
-}
-
-//APP BAR
-class MyAppBar extends StatelessWidget {
-  final bool showBackButton;
-
-  MyAppBar({this.showBackButton});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0, 10, 10, 10),
-      child: Row(
-        mainAxisAlignment: showBackButton
-            ? MainAxisAlignment.spaceAround
-            : MainAxisAlignment.end,
-        children: [
-          if (showBackButton)
-            Icon(Icons.keyboard_backspace, size: 30, color: Colors.brown[900]),
-          Icon(Icons.menu, size: 30, color: Colors.brown[900]),
-        ],
       ),
     );
   }
